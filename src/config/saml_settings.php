@@ -1,36 +1,30 @@
 <?php
 
 return $settings = array(
+
+    // Laravel settings
+    //
+
     'lavarel' => array(
         'useRoutes' => true,
 
         'routesPrefix' => '/saml2',
 
-        /**
-         * Where to redirect after logout
-         */
+         // Where to redirect after logout
         'logoutRoute' => '/',
 
-        /**
-         * Where to redirect after login if no other option was provided
-         */
+         // Where to redirect after login if no other option was provided
         'loginRoute' => '/',
 
-        /**
-         * Where to redirect after login if no other option was provided
-         */
+         // Where to redirect after login if no other option was provided
         'errorRoute' => '/',
 
-        /**
-         * Indicates how the parameters will be
-         * retrieved from the sls request for signature validation
-         */
+         // Indicates how the parameters will be
+         // retrieved from the sls request for signature validation
         'retrieveParametersFromServer' => false,
 
-        /**
-         * Set here the attribute mapping between Lavarel and the IdP
-         *  LavarelAttrName => IdPAttrName
-         */ 
+         // Set here the attribute mapping between Lavarel and the IdP
+         // LavarelAttrName => IdPAttrName
         'attrMapping' => array(
             'userId' => 'uid',
         ),
@@ -59,13 +53,16 @@ return $settings = array(
         'privateKey' > '',
 
         //LARAVEL - You don't need to change anything else on the sp
+
         // Identifier of the SP entity  (must be a URI)
         'entityId' => '', //LARAVEL: This would be set to saml_metadata route
+
         // Specifies info about where and how the <AuthnResponse> message MUST be
         // returned to the requester, in this case our SP.
         'assertionConsumerService' => array(
             // URL Location where the <Response> from the IdP will be returned
             'url' => '', //LARAVEL: This would be set to saml_acs route
+
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
@@ -76,6 +73,7 @@ return $settings = array(
         'singleLogoutService' => array(
             // URL Location where the <Response> from the IdP will be returned
             'url' => '', //LARAVEL: This would be set to saml_sls route
+
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
@@ -87,10 +85,12 @@ return $settings = array(
     'idp' => array(
         // Identifier of the IdP entity  (must be a URI)
         'entityId' => '',
+
         // SSO endpoint info of the IdP. (Authentication Request protocol)
         'singleSignOnService' => array(
             // URL Target of the IdP where the SP will send the Authentication Request Message
             'url' => '',
+
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-POST binding only
@@ -100,6 +100,7 @@ return $settings = array(
         'singleLogoutService' => array(
             // URL Location of the IdP where the SP will send the SLO Request
             'url' => '',
+
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
@@ -107,21 +108,17 @@ return $settings = array(
         ),
         // Public x509 certificate of the IdP
         'x509cert' => '',
-        /*
-         *  Instead of use the whole x509cert you can use a fingerprint
-         *  (openssl x509 -noout -fingerprint -in "idp.crt" to generate it)
-         */
-        // 'certFingerprint' => '',
+        
+        // Instead of the whole x509cert you can use a fingerprint
+        // (openssl x509 -noout -fingerprint -in "idp.crt" to generate it)
+        //'certFingerprint' => '',
     ),
 
-    /***
-     *
-     *  OneLogin advanced settings
-     *
-     *
-     */
+    //
+    // OneLogin advanced settings
+    //
 
-    // Compression settings 
+    // Compression settings
     // Handle if the getRequest/getResponse methods will return the Request/Response deflated.
     // But if we provide a $deflate boolean parameter to the getRequest or getResponse
     // method it will have priority over the compression settings.
@@ -133,7 +130,8 @@ return $settings = array(
     // Security settings
     'security' => array(
 
-        /** signatures and encryptions offered */
+        // signatures and encryptions offered
+        //
 
         // Indicates that the nameID of the <samlp:logoutRequest> sent by this SP
         // will be encrypted.
@@ -151,16 +149,18 @@ return $settings = array(
         // will be signed.
         'logoutResponseSigned' => false,
 
-        /* Sign the Metadata
-         False || True (use sp certs) || array (
-                                                    keyFileName => 'metadata.key',
-                                                    certFileName => 'metadata.crt'
-                                                )
-        */
+        // Sign the Metadata, valid content:
+        // False || True (use sp certs)
+        // or an array
+        // [
+        //    keyFileName => 'metadata.key',
+        //    certFileName => 'metadata.crt'
+        // ]
         'signMetadata' => false,
 
 
-        /** signatures and encryptions required **/
+        // signatures and encryptions required
+        //
 
         // Indicates a requirement for the <samlp:Response>, <samlp:LogoutRequest> and
         // <samlp:LogoutResponse> elements received by this SP to be signed.
@@ -180,12 +180,16 @@ return $settings = array(
 
         // Authentication context.
         // Set to false and no AuthContext will be sent in the AuthNRequest,
-        // Set true or don't present this parameter and you will get an AuthContext 'exact' 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
-        // Set an array with the possible auth context values: array ('urn:oasis:names:tc:SAML:2.0:ac:classes:Password', 'urn:oasis:names:tc:SAML:2.0:ac:classes:X509'),
+        // Set true or don't present this parameter and you will get an AuthContext
+        // 'exact' 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
+        // Set an array with the possible auth context values:
+        // array ('urn:oasis:names:tc:SAML:2.0:ac:classes:Password', 'urn:oasis:names:tc:SAML:2.0:ac:classes:X509'),
         'requestedAuthnContext' => false,
+
         // Allows the authn comparison parameter to be set, defaults to 'exact' if
         // the setting is not present.
         'requestedAuthnContextComparison' => 'exact',
+
         // Indicates if the SP will validate all received xmls.
         // (In order to validate the xml, 'strict' and 'wantXMLValidation' must be true).
         'wantXMLValidation' => true,
@@ -197,6 +201,7 @@ return $settings = array(
         //    'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384'
         //    'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512'
         'signatureAlgorithm' => 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
+
         // ADFS URL-Encodes SAML data as lowercase, and the toolkit by default uses
         // uppercase. Turn it True for ADFS compatibility on signature verification
         'lowercaseUrlencoding' => false,
